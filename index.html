@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join the Waitlist</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-black: #111111;
+        --brand-red: #e62e2d;
+        --brand-red-hover: #c42625;
+        --text-gray: #555555;
+        --text-light: #777;
+        --border-color: #e5e5e5;
+        --bg-brand-side: #f3f4f6; /* Slightly darker gray for contrast */
+        --bg-form-side: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--primary-black);
+        height: 100vh;
+        /* Remove default padding, let the wrapper handle layout */
+      }
+
+      /* --- Main Split Layout --- */
+      .main-wrapper {
+        display: flex;
+        height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      /* Left Side: Branding */
+      .brand-side {
+        flex: 1; /* Takes 50% width on desktop */
+        background-color: var(--bg-brand-side);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px;
+      }
+
+      .brand-content {
+        max-width: 480px;
+      }
+
+      .logo {
+        height: 110px;
+        width: auto;
+        margin-bottom: 40px;
+      }
+
+      h1 {
+        font-size: 3rem; /* Larger on desktop */
+        font-weight: 800;
+        margin-bottom: 20px;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+      }
+
+      p.hero-subtitle {
+        color: var(--text-gray);
+        font-size: 1.25rem;
+        line-height: 1.6;
+        font-weight: 400;
+      }
+
+      /* Right Side: Form */
+      .form-side {
+        flex: 1; /* Takes 50% width on desktop */
+        background-color: var(--bg-form-side);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        overflow-y: auto; /* Allow scrolling if form is tall */
+      }
+
+      .form-container {
+        max-width: 440px; /* Slightly narrower for clean look */
+        width: 100%;
+        /* No shadow needed as it's on a white background now */
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .form-header-mobile {
+        display: none;
+      } /* Hidden on desktop */
+
+      /* --- Form Elements --- */
+      .form-grid {
+        display: grid;
+        gap: 16px;
+        margin-top: 32px;
+      }
+
+      .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-align: left;
+      }
+
+      label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--primary-black);
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: inherit;
+        transition: all 0.2s;
+        background: #fff;
+        color: var(--primary-black);
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--primary-black);
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+      }
+
+      .row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .button1 {
+        margin-top: 12px;
+        width: 45%;
+        padding: 16px;
+        background-color: var(--brand-red);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .button1:hover {
+        background-color: var(--brand-red-hover);
+      }
+
+      .button2 {
+        margin-top: 12px;
+        width: 100;
+        padding: 16px;
+        background-color: var(--brand-red);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .button2:hover {
+        background-color: var(--brand-red-hover);
+      }
+
+      .button3 {
+        margin-top: 12px;
+        width: 45%;
+        padding: 16px;
+        background-color: "#fff";
+        color: var(--brand-red);
+        border: 1px solid var(--brand-red);
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .button3:hover {
+        background-color: var(--brand-red-hover);
+      }
+
+      /* Success State */
+      .success-state {
+        display: none;
+        text-align: center;
+        padding: 40px 0;
+        animation: slideUp 0.5s ease-out;
+      }
+      .success-icon {
+        font-size: 64px;
+        color: var(--brand-red);
+        margin-bottom: 24px;
+        display: block;
+      }
+
+      .footer {
+        margin-top: 32px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--text-light);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* --- Mobile Responsiveness (Breakpoint: 960px) --- */
+      @media (max-width: 960px) {
+        .main-wrapper {
+          flex-direction: column; /* Stack vertically */
+          height: auto; /* Allow content to dictate height */
+          min-height: 100vh;
+        }
+
+        .brand-side {
+          flex: 0 0 auto; /* Don't stretch, just take needed height */
+          padding: 60px 24px 40px 24px;
+          align-items: center;
+          text-align: center;
+        }
+
+        .logo {
+          height: 100px;
+          margin-bottom: 32px;
+        }
+
+        h1 {
+          font-size: 2.25rem;
+        }
+        p.hero-subtitle {
+          font-size: 1.1rem;
+        }
+
+        .form-side {
+          flex: 1 0 auto;
+          padding: 40px 24px 60px 24px;
+          align-items: flex-start; /* Align top on mobile scroll */
+        }
+
+        .form-container {
+          max-width: 100%; /* Full width on mobile */
+        }
+
+        .form-header-mobile {
+          display: block;
+          margin-bottom: 24px;
+          text-align: center;
+        }
+        .form-header-mobile h2 {
+          font-size: 1.5rem;
+        }
+
+        /* Stack the side-by-side inputs on very small screens */
+        @media (max-width: 480px) {
+          .row-2 {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <div class="brand-side">
+        <div class="brand-content">
+          <img src="logo.svg" alt="Logo" class="logo" />
+          <h1>Supercharge your sales.</h1>
+          <p class="hero-subtitle">
+            The new standard in commerce advertisement. Join the waitlist to
+            secure early access for your brand.
+          </p>
+
+          <a href="./howItWorks.html">
+            <button type="button" class="button2" id="">Why It Works</button>
+          </a>
+        </div>
+      </div>
+
+      <div class="form-side">
+        <div class="form-container">
+          <div id="successContent" class="success-state">
+            <span class="success-icon">✔</span>
+            <h2>You're on the list!</h2>
+            <p style="color: var(--text-gray); margin-top: 12px">
+              Thanks for requesting access. We'll review your store details and
+              reach out shortly.
+            </p>
+          </div>
+
+          <div id="formContent">
+            <div class="form-header-mobile">
+              <h2>Request Access</h2>
+            </div>
+
+            <form id="waitlistForm" class="form-grid">
+              <div class="input-wrapper">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Jane Doe" required />
+              </div>
+
+              <div class="input-wrapper">
+                <label for="email">Work Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="jane@store.com"
+                  required
+                />
+              </div>
+
+              <div class="input-wrapper">
+                <label for="website">Store URL</label>
+                <input
+                  type="text"
+                  id="website"
+                  placeholder="www.mystore.com"
+                  required
+                />
+              </div>
+
+              <div class="row-2">
+                <div class="input-wrapper">
+                  <label for="platform">Platform</label>
+                  <select id="platform" required>
+                    <option value="" disabled selected>Select...</option>
+                    <option value="shopify">Shopify</option>
+                    <option value="woocommerce">WooCommerce</option>
+                    <option value="magento">Magento</option>
+                    <option value="bigcommerce">BigCommerce</option>
+                    <option value="custom">Custom / Other</option>
+                  </select>
+                </div>
+
+                <div class="input-wrapper">
+                  <label for="country">Country</label>
+                  <select id="country" required>
+                    <option value="" disabled selected>Select...</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="AU">Australia</option>
+                    <option value="DE">Germany</option>
+                    <option value="FR">France</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between">
+                <button type="submit" id="submitBtn" class="button1">
+                  Join Waitlist
+                </button>
+                <button type="submit" id="submitBtn" class="button3">
+                  +3 months for 9.99
+                </button>
+              </div>
+            </form>
+
+            <div class="footer">&copy; 2025 Arbana. All rights reserved.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("waitlistForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const btn = document.getElementById("submitBtn");
+          const originalText = btn.innerText;
+
+          btn.innerText = "Processing...";
+          btn.style.opacity = "0.7";
+
+          const data = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            website: document.getElementById("website").value,
+            platform: document.getElementById("platform").value,
+            country: document.getElementById("country").value,
+          };
+
+          const scriptURL =
+            "https://script.google.com/macros/s/AKfycbyq4cMSoC0HZS7ej8rgF98L-wESq16KzQRP13LIsfVH1Pba4LNn5djK1O7vgzb0bJpF/exec";
+
+          fetch(scriptURL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+            body: JSON.stringify(data),
+          })
+            .then(() => {
+              console.log("Success");
+
+              document.getElementById("formContent").style.display = "none";
+              const successDiv = document.getElementById("successContent");
+              successDiv.style.display = "block";
+              successDiv.parentElement.style.display = "flex";
+              successDiv.parentElement.style.flexDirection = "column";
+              successDiv.parentElement.style.justifyContent = "center";
+              successDiv.parentElement.style.minHeight = "400px";
+            })
+            .catch((error) => {
+              console.error("Error!", error.message);
+              alert(
+                "Something went wrong. Please check your internet connection."
+              );
+              btn.innerText = originalText;
+              btn.style.opacity = "1";
+            });
+        });
+    </script>
+  </body>
+</html>
