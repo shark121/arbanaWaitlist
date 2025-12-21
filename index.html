@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join the Waitlist</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -16,8 +16,9 @@
         --text-gray: #555555;
         --text-light: #777;
         --border-color: #e5e5e5;
-        --bg-brand-side: #f3f4f6; /* Slightly darker gray for contrast */
-        --bg-form-side: #ffffff;
+        --bg-hero: #f3f4f6; /* Gray background for top section */
+        --bg-white: #ffffff;
+        --bg-secondary: #f9fafb;
       }
 
       * {
@@ -26,45 +27,43 @@
         padding: 0;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         font-family: "Inter", sans-serif;
         color: var(--primary-black);
-        height: 100vh;
-        /* Remove default padding, let the wrapper handle layout */
+        background-color: var(--bg-white);
       }
 
-      /* --- Main Split Layout --- */
-      .main-wrapper {
-        display: flex;
-        height: 100vh;
-        width: 100%;
-        overflow-x: hidden;
-      }
-
-      /* Left Side: Branding */
-      .brand-side {
-        flex: 1; /* Takes 50% width on desktop */
-        background-color: var(--bg-brand-side);
+      /* =========================================
+         SECTION 1: HERO (Top)
+         ========================================= */
+      .hero-section {
+        background-color: var(--bg-hero);
+        padding: 80px 20px 40px;
+        text-align: center;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        padding: 80px;
+        align-items: center;
       }
 
       .brand-content {
-        max-width: 480px;
+        max-width: 600px;
+        margin: 0 auto;
       }
 
       .logo {
-        height: 110px;
+        height: 100px;
         width: auto;
-        margin-bottom: 40px;
+        margin-bottom: 32px;
       }
 
-      h1 {
-        font-size: 3rem; /* Larger on desktop */
+      h1.hero-title {
+        font-size: 3rem;
         font-weight: 800;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
         letter-spacing: -0.03em;
         line-height: 1.1;
       }
@@ -74,35 +73,43 @@
         font-size: 1.25rem;
         line-height: 1.6;
         font-weight: 400;
+        margin-bottom: 32px;
       }
 
-      /* Right Side: Form */
-      .form-side {
-        flex: 1; /* Takes 50% width on desktop */
-        background-color: var(--bg-form-side);
+      /* =========================================
+         SECTION 2: FORM (Middle)
+         ========================================= */
+      .form-section {
+        background-color: var(--bg-hero); /* Continue gray bg to merge with hero */
+        padding: 0 20px 80px; /* Padding bottom to separate from next section */
         display: flex;
-        align-items: center;
         justify-content: center;
-        padding: 40px;
-        overflow-y: auto; /* Allow scrolling if form is tall */
       }
 
       .form-container {
-        max-width: 440px; /* Slightly narrower for clean look */
+        max-width: 500px;
         width: 100%;
-        /* No shadow needed as it's on a white background now */
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.05); /* Added shadow for pop */
         animation: fadeIn 0.8s ease-out;
       }
 
       .form-header-mobile {
-        display: none;
-      } /* Hidden on desktop */
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      
+      .form-header-mobile h2 {
+          font-size: 1.5rem;
+          font-weight: 700;
+      }
 
-      /* --- Form Elements --- */
+      /* Form Elements */
       .form-grid {
         display: grid;
         gap: 16px;
-        margin-top: 32px;
       }
 
       .input-wrapper {
@@ -144,9 +151,16 @@
         gap: 16px;
       }
 
+      /* Buttons */
+      .btn-row {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+          margin-top: 8px;
+      }
+
       .button1 {
-        margin-top: 12px;
-        width: 45%;
+        width: 100%;
         padding: 16px;
         background-color: var(--brand-red);
         color: white;
@@ -161,41 +175,42 @@
       .button1:hover {
         background-color: var(--brand-red-hover);
       }
-
-      .button2 {
-        margin-top: 12px;
-        width: 100;
-        padding: 16px;
-        background-color: var(--brand-red);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 700;
+      
+      /* Secondary button style for "Why it works" */
+      .button-outline {
+        padding: 12px 24px;
+        background-color: transparent;
+        color: var(--brand-red);
+        border: 2px solid var(--border-color); /* Subtle border */
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 600;
         cursor: pointer;
-        transition: background-color 0.2s;
+        transition: all 0.2s;
+        text-decoration: none;
+        display: inline-block;
       }
-
-      .button2:hover {
-        background-color: var(--brand-red-hover);
+      
+      .button-outline:hover {
+          border-color: var(--brand-red);
+          background-color: white;
       }
 
       .button3 {
-        margin-top: 12px;
-        width: 45%;
+        width: 100%;
         padding: 16px;
-        background-color: "#fff";
+        background-color: #fff;
         color: var(--brand-red);
         border: 1px solid var(--brand-red);
         border-radius: 8px;
-        font-size: 1rem;
+        font-size: 0.9rem; /* Slightly smaller text for offer */
         font-weight: 700;
         cursor: pointer;
         transition: background-color 0.2s;
       }
 
       .button3:hover {
-        background-color: var(--brand-red-hover);
+        background-color: #fff5f5;
       }
 
       /* Success State */
@@ -213,106 +228,203 @@
       }
 
       .footer {
-        margin-top: 32px;
+        margin-top: 24px;
         text-align: center;
         font-size: 0.85rem;
         color: var(--text-light);
       }
 
+      /* =========================================
+         SECTION 3: CONTENT (Why It Works)
+         ========================================= */
+      .content-wrapper {
+        background-color: #ffffff;
+        position: relative;
+        z-index: 5;
+        border-top: 1px solid var(--border-color);
+      }
+
+      /* Hero within content */
+      .content-hero {
+        text-align: center;
+        padding: 100px 20px 60px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .content-hero h2 {
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin-bottom: 24px;
+      }
+
+      .highlight {
+        color: var(--brand-red);
+      }
+
+      p.lead {
+        font-size: 1.25rem;
+        color: var(--text-gray);
+        font-weight: 300;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      /* Data Grid Section */
+      .stats-section {
+        background-color: var(--bg-secondary);
+        padding: 80px 20px;
+        margin-top: 40px;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        text-align: left;
+      }
+
+      .stat-card h3 {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--brand-red);
+        margin-bottom: 8px;
+      }
+
+      .stat-card h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: var(--primary-black);
+      }
+
+      .stat-card p {
+        font-size: 0.95rem;
+        color: var(--text-gray);
+        line-height: 1.6;
+      }
+
+      .source {
+        display: block;
+        margin-top: 12px;
+        font-size: 0.75rem;
+        color: #999;
+        font-style: italic;
+      }
+
+      /* Trend Chart Section */
+      .chart-section {
+        padding: 100px 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .chart-header {
+        margin-bottom: 40px;
+        text-align: center;
+      }
+
+      .chart-header h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+
+      .chart-wrapper {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        min-height: 400px;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        text-align: center;
+        padding: 100px 20px;
+        background-color: var(--primary-black);
+        color: white;
+      }
+
+      .cta-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 24px;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background-color: var(--brand-red);
+        color: white;
+        padding: 16px 48px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: transform 0.2s, background-color 0.2s;
+      }
+
+      .cta-button:hover {
+        background-color: #c42625;
+        transform: translateY(-2px);
+      }
+
       /* Animations */
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
       @keyframes slideUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
-      /* --- Mobile Responsiveness (Breakpoint: 960px) --- */
-      @media (max-width: 960px) {
-        .main-wrapper {
-          flex-direction: column; /* Stack vertically */
-          height: auto; /* Allow content to dictate height */
-          min-height: 100vh;
-        }
+      /* --- Mobile Responsiveness --- */
+      @media (max-width: 768px) {
+        .logo { height: 80px; }
+        h1.hero-title { font-size: 2.25rem; }
+        
+        .form-section { padding-left: 20px; padding-right: 20px; }
+        .form-container { padding: 24px; }
+        
+        .content-hero h2 { font-size: 2rem; }
+        .stats-grid { grid-template-columns: 1fr; gap: 40px; }
+        .stat-card { text-align: center; }
+        
+        .btn-row { flex-direction: column; }
 
-        .brand-side {
-          flex: 0 0 auto; /* Don't stretch, just take needed height */
-          padding: 60px 24px 40px 24px;
-          align-items: center;
-          text-align: center;
-        }
-
-        .logo {
-          height: 100px;
-          margin-bottom: 32px;
-        }
-
-        h1 {
-          font-size: 2.25rem;
-        }
-        p.hero-subtitle {
-          font-size: 1.1rem;
-        }
-
-        .form-side {
-          flex: 1 0 auto;
-          padding: 40px 24px 60px 24px;
-          align-items: flex-start; /* Align top on mobile scroll */
-        }
-
-        .form-container {
-          max-width: 100%; /* Full width on mobile */
-        }
-
-        .form-header-mobile {
-          display: block;
-          margin-bottom: 24px;
-          text-align: center;
-        }
-        .form-header-mobile h2 {
-          font-size: 1.5rem;
-        }
-
-        /* Stack the side-by-side inputs on very small screens */
         @media (max-width: 480px) {
-          .row-2 {
-            grid-template-columns: 1fr;
-            gap: 16px;
-          }
+          .row-2 { grid-template-columns: 1fr; gap: 16px; }
         }
       }
     </style>
   </head>
   <body>
-    <div class="main-wrapper">
-      <div class="brand-side">
+    
+    <div class="hero-section" id="top">
         <div class="brand-content">
           <img src="logo.svg" alt="Logo" class="logo" />
-          <h1>Supercharge your sales.</h1>
+          <h1 class="hero-title">Supercharge your sales.</h1>
           <p class="hero-subtitle">
             The new standard in commerce advertisement. Join the waitlist to
             secure early access for your brand.
           </p>
-
-          <a href="./howItWorks.html">
-            <button type="button" class="button2" id="">Why It Works</button>
+          
+          <a href="#analysis" class="button-outline">
+            See why it works ↓
           </a>
         </div>
-      </div>
+    </div>
 
-      <div class="form-side">
+    <div class="form-section">
         <div class="form-container">
           <div id="successContent" class="success-state">
             <span class="success-icon">✔</span>
@@ -382,11 +494,11 @@
                 </div>
               </div>
 
-              <div style="display: flex; justify-content: space-between">
+              <div class="btn-row">
                 <button type="submit" id="submitBtn" class="button1">
                   Join Waitlist
                 </button>
-                <button type="submit" id="submitBtn" class="button3">
+                <button type="button" class="button3">
                   +3 months for 9.99
                 </button>
               </div>
@@ -395,7 +507,66 @@
             <div class="footer">&copy; 2025 Arbana. All rights reserved.</div>
           </div>
         </div>
-      </div>
+    </div>
+
+    <div class="content-wrapper" id="analysis">
+        
+        <section class="content-hero">
+            <h2>They aren't saying "No".<br>They're saying <span class="highlight">"Not Yet."</span></h2>
+            <p class="lead">Research confirms that the modern consumer has been conditioned to wait. We help you capture the demand that others let slip away.</p>
+        </section>
+
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>79%</h3>
+                        <h4>Of Gen Z waits for sales</h4>
+                        <p>The next generation of shoppers rarely pays full price. They intentionally delay gratification until the price is right.</p>
+                        <span class="source">Source: PwC Consumer Insights Survey 2025</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>2x</h3>
+                        <h4>Higher Purchase Probability</h4>
+                        <p>Consumers are twice as likely to complete a purchase when presented with a discount of just 20% compared to regular pricing.</p>
+                        <span class="source">Source: Amra & Elma Market Research</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>+30%</h3>
+                        <h4>Conversion Lift</h4>
+                        <p>Stores that utilize scarcity tactics (like flash sales or limited drops) see an average conversion rate increase of over 30%.</p>
+                        <span class="source">Source: Amazon Lightning Deals Data</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <div class="chart-header">
+                <h2>The "Sale" Intent is Massive</h2>
+                <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto;">
+                    We compared search volume for "Sale" against the world's biggest social platforms. 
+                    The intent to buy is as powerful as the intent to connect.
+                </p>
+            </div>
+
+            <div class="chart-wrapper">
+                <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/4284_RC01/embed_loader.js"></script>
+                <script type="text/javascript">
+                    trends.embed.renderExploreWidget("TIMESERIES", 
+                    {"comparisonItem":[{"keyword":"sale","geo":"US","time":"today 12-m"},{"keyword":"facebook","geo":"US","time":"today 12-m"},{"keyword":"amazon","geo":"US","time":"today 12-m"},{"keyword":"instagram","geo":"US","time":"today 12-m"}],"category":0,"property":""}, 
+                    {"exploreQuery":"geo=US&q=sale,facebook,amazon,instagram&hl=en&date=today 12-m,today 12-m,today 12-m,today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"});
+                </script>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Stop losing revenue to the "Wait".</h2>
+            <p style="color: #ccc; margin-bottom: 32px;">Turn patient browsers into instant buyers.</p>
+            <a href="#top" class="cta-button">Join the Waitlist</a>
+        </section>
     </div>
 
     <script>
@@ -435,6 +606,7 @@
               document.getElementById("formContent").style.display = "none";
               const successDiv = document.getElementById("successContent");
               successDiv.style.display = "block";
+              // Animation and centering logic
               successDiv.parentElement.style.display = "flex";
               successDiv.parentElement.style.flexDirection = "column";
               successDiv.parentElement.style.justifyContent = "center";
