@@ -8,6 +8,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
       :root {
         --primary-black: #111111;
@@ -16,9 +18,9 @@
         --text-gray: #555555;
         --text-light: #777;
         --border-color: #e5e5e5;
-        --bg-hero: #f3f4f6; /* Gray background for top section */
-        --bg-white: #ffffff;
-        --bg-secondary: #f9fafb;
+        --bg-brand-side: #f3f4f6;
+        --bg-form-side: #ffffff;
+        --bg-card: #ffffff;
       }
 
       * {
@@ -34,82 +36,177 @@
       body {
         font-family: "Inter", sans-serif;
         color: var(--primary-black);
-        background-color: var(--bg-white);
+        height: 100vh;
+        overflow: hidden;
       }
 
       /* =========================================
-         SECTION 1: HERO (Top)
+          SPLIT LAYOUT
          ========================================= */
-      .hero-section {
-        background-color: var(--bg-hero);
-        padding: 80px 20px 40px;
-        text-align: center;
+      .main-wrapper {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        height: 100vh;
+        width: 100%;
       }
 
-      .brand-content {
-        max-width: 600px;
-        margin: 0 auto;
+      /* --- LEFT SIDE: Content & Stats (Scrollable) --- */
+      .brand-side {
+        flex: 1;
+        background-color: var(--bg-brand-side);
+        display: flex;
+        flex-direction: column;
+        padding: 60px 80px;
+        overflow-y: auto;
+        /* Hide scrollbar */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .brand-side::-webkit-scrollbar {
+        display: none;
       }
 
       .logo {
-        height: 100px;
+        height: 80px;
         width: auto;
-        margin-bottom: 32px;
+        margin-bottom: 40px;
       }
 
-      h1.hero-title {
-        font-size: 3rem;
+      .content-block {
+        max-width: 600px;
+        margin-bottom: 50px;
+      }
+
+      h1 {
+        font-size: 2.8rem;
         font-weight: 800;
         margin-bottom: 16px;
         letter-spacing: -0.03em;
         line-height: 1.1;
       }
 
+      .highlight {
+        color: var(--brand-red);
+      }
+
       p.hero-subtitle {
         color: var(--text-gray);
-        font-size: 1.25rem;
+        font-size: 1.15rem;
         line-height: 1.6;
         font-weight: 400;
         margin-bottom: 32px;
       }
 
-      /* =========================================
-         SECTION 2: FORM (Middle)
-         ========================================= */
-      .form-section {
-        background-color: var(--bg-hero); /* Continue gray bg to merge with hero */
-        padding: 0 20px 80px; /* Padding bottom to separate from next section */
+      /* --- FLEX GRID STATS (Always Visible) --- */
+      .stats-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap; /* Allows wrapping to next line */
+        gap: 16px;
+        margin-bottom: 50px;
+      }
+
+      .stat-card {
+        flex: 1 1 220px;
+        background: var(--bg-card);
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        transition: transform 0.2s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      }
+
+      .stat-card h3 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--brand-red);
+        margin: 0;
+        line-height: 1;
+      }
+
+      .stat-card h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-top: 8px;
+        margin-bottom: 12px;
+        color: var(--primary-black);
+      }
+
+      .stat-details p {
+        font-size: 0.9rem;
+        color: var(--text-gray);
+        line-height: 1.5;
+        margin-bottom: 8px;
+      }
+
+      .source {
+        display: block;
+        font-size: 0.75rem;
+        color: #999;
+        font-style: italic;
+      }
+
+      /* CHART SECTION */
+      .chart-container {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        margin-bottom: 40px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .chart-header h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+      
+      .chart-icons span {
+        margin-left: 10px;
+        cursor: pointer;
+        color: #666;
+      }
+
+      /* --- RIGHT SIDE: Form (Fixed) --- */
+      .form-side {
+        flex: 1;
+        background-color: var(--bg-form-side);
         display: flex;
         justify-content: center;
+        padding: 40px;
+        border-left: 1px solid var(--border-color);
       }
 
       .form-container {
-        max-width: 500px;
+        max-width: 440px;
         width: 100%;
-        background: white;
-        padding: 40px;
-        border-radius: 16px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.05); /* Added shadow for pop */
         animation: fadeIn 0.8s ease-out;
       }
 
       .form-header-mobile {
-        text-align: center;
-        margin-bottom: 24px;
-      }
-      
-      .form-header-mobile h2 {
-          font-size: 1.5rem;
-          font-weight: 700;
+        display: none;
       }
 
-      /* Form Elements */
+      /* Form Styling */
       .form-grid {
         display: grid;
         gap: 16px;
+        margin-top: 20px;
       }
 
       .input-wrapper {
@@ -151,12 +248,11 @@
         gap: 16px;
       }
 
-      /* Buttons */
       .btn-row {
-          display: flex;
-          justify-content: space-between;
-          gap: 12px;
-          margin-top: 8px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 8px;
       }
 
       .button1 {
@@ -175,26 +271,6 @@
       .button1:hover {
         background-color: var(--brand-red-hover);
       }
-      
-      /* Secondary button style for "Why it works" */
-      .button-outline {
-        padding: 12px 24px;
-        background-color: transparent;
-        color: var(--brand-red);
-        border: 2px solid var(--border-color); /* Subtle border */
-        border-radius: 50px;
-        font-size: 0.95rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-        text-decoration: none;
-        display: inline-block;
-      }
-      
-      .button-outline:hover {
-          border-color: var(--brand-red);
-          background-color: white;
-      }
 
       .button3 {
         width: 100%;
@@ -203,7 +279,7 @@
         color: var(--brand-red);
         border: 1px solid var(--brand-red);
         border-radius: 8px;
-        font-size: 0.9rem; /* Slightly smaller text for offer */
+        font-size: 0.9rem;
         font-weight: 700;
         cursor: pointer;
         transition: background-color 0.2s;
@@ -273,156 +349,150 @@
         line-height: 1.6;
       }
 
-      /* Data Grid Section */
-      .stats-section {
-        background-color: var(--bg-secondary);
-        padding: 80px 20px;
-        margin-top: 40px;
-      }
-
-      .container {
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-
-      .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 40px;
-        text-align: left;
-      }
-
-      .stat-card h3 {
-        font-size: 3rem;
-        font-weight: 800;
-        color: var(--brand-red);
-        margin-bottom: 8px;
-      }
-
-      .stat-card h4 {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 12px;
-        color: var(--primary-black);
-      }
-
-      .stat-card p {
-        font-size: 0.95rem;
-        color: var(--text-gray);
-        line-height: 1.6;
-      }
-
-      .source {
-        display: block;
-        margin-top: 12px;
-        font-size: 0.75rem;
-        color: #999;
-        font-style: italic;
-      }
-
-      /* Trend Chart Section */
-      .chart-section {
-        padding: 100px 20px;
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-
-      .chart-header {
-        margin-bottom: 40px;
-        text-align: center;
-      }
-
-      .chart-header h2 {
-        font-size: 2.2rem;
-        font-weight: 700;
-        margin-bottom: 16px;
-      }
-
-      .chart-wrapper {
-        background: white;
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        min-height: 400px;
-      }
-
-      /* CTA Section */
-      .cta-section {
-        text-align: center;
-        padding: 100px 20px;
-        background-color: var(--primary-black);
-        color: white;
-      }
-
-      .cta-section h2 {
-        font-size: 2.5rem;
-        margin-bottom: 24px;
-      }
-
-      .cta-button {
-        display: inline-block;
-        background-color: var(--brand-red);
-        color: white;
-        padding: 16px 48px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1.1rem;
-        transition: transform 0.2s, background-color 0.2s;
-      }
-
-      .cta-button:hover {
-        background-color: #c42625;
-        transform: translateY(-2px);
-      }
-
-      /* Animations */
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
       /* --- Mobile Responsiveness --- */
-      @media (max-width: 768px) {
-        .logo { height: 80px; }
-        h1.hero-title { font-size: 2.25rem; }
-        
-        .form-section { padding-left: 20px; padding-right: 20px; }
-        .form-container { padding: 24px; }
-        
-        .content-hero h2 { font-size: 2rem; }
-        .stats-grid { grid-template-columns: 1fr; gap: 40px; }
-        .stat-card { text-align: center; }
-        
-        .btn-row { flex-direction: column; }
+      @media (max-width: 960px) {
+        body {
+          overflow: auto;
+          height: auto;
+        }
+
+        .main-wrapper {
+          flex-direction: column-reverse;
+          height: auto;
+        }
+
+        .brand-side {
+          padding: 40px 24px;
+          overflow: visible;
+        }
+
+        .form-side {
+          padding: 40px 24px;
+          border-left: none;
+          border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-header-mobile {
+          display: block;
+          margin-bottom: 24px;
+          text-align: center;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
 
         @media (max-width: 480px) {
-          .row-2 { grid-template-columns: 1fr; gap: 16px; }
+          .row-2 {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .btn-row {
+            flex-direction: column;
+          }
+          /* On very small screens, make cards full width */
+          .stat-card {
+            flex: 1 1 100%;
+          }
         }
       }
     </style>
   </head>
   <body>
-    
-    <div class="hero-section" id="top">
-        <div class="brand-content">
-          <img src="logo.svg" alt="Logo" class="logo" />
-          <h1 class="hero-title">Supercharge your sales.</h1>
+    <div class="main-wrapper">
+      <div class="brand-side">
+        <img src="logo.svg" alt="Logo" class="logo" />
+
+        <div class="content-block">
+          <h1>Let arbana supercharge your sales.</h1>
           <p class="hero-subtitle">
-            The new standard in commerce advertisement. Join the waitlist to
-            secure early access for your brand.
+            Research has shown that the modern retailer can significantly boost
+            sales by leveraging strategic discounts and scarcity tactics.
           </p>
-          
-          <a href="#analysis" class="button-outline">
-            See why it works ↓
-          </a>
         </div>
-    </div>
+
+        <div class="stats-container">
+          <div class="stat-card">
+            <h3>53%</h3>
+            <h4>Start with Sales</h4>
+            <div class="stat-details">
+              <p>
+                More than half of all consumers begin their shopping journey
+                looking at sale items.
+              </p>
+              <span class="source">Source: RetailMeNot</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <h3>79%</h3>
+            <h4>Gen Z Waits</h4>
+            <div class="stat-details">
+              <p>
+                The next generation rarely pays full price, intentionally
+                delaying gratification.
+              </p>
+              <span class="source">Source: PwC Survey 2025</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <h3>2x</h3>
+            <h4>Purchase Prob.</h4>
+            <div class="stat-details">
+              <p>
+                Consumers are twice as likely to complete a purchase with a 20%
+                discount offer.
+              </p>
+              <span class="source">Source: Amra & Elma Research</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <h3>93.6%</h3>
+            <h4>Wait occasionally</h4>
+            <div class="stat-details">
+              <p>
+                Studies show that over 90% of clothing shoppers will wait for a
+                discount at least occasionally.
+              </p>
+              <span class="source"
+                >Source: 2023 Ecommerce Research</span
+              >
+            </div>
+          </div>
+          <div class="stat-card">
+            <h3>45%</h3>
+            <h4>Abandon Cart</h4>
+            <div class="stat-details">
+              <p>
+                Nearly half of online shoppers abandon their carts due to high
+                prices, indicating preference for discounts.
+              </p>
+              <span class="source">Source: Baymard Institute</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-header">
+            <h4>Interest over time</h4>
+             <div class="chart-icons">
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="color: #555;">
+                  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                  <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+               </svg>
+             </div>
+          </div>
+          
+          <div style="position: relative; height: 300px; width: 100%;">
+            <canvas id="googleTrendsChart"></canvas>
+          </div>
+        </div>
+
+        <p style="color: #999; font-size: 0.8rem">
+          &copy; 2025 Arbana Analysis.
+        </p>
+      </div>
 
     <div class="form-section">
         <div class="form-container">
@@ -499,7 +569,7 @@
                   Join Waitlist
                 </button>
                 <button type="button" class="button3">
-                  +3 months for 9.99
+                  Get 3 months for 9.99
                 </button>
               </div>
             </form>
@@ -570,6 +640,129 @@
     </div>
 
     <script>
+      // 1. Chart Logic
+      const ctx = document.getElementById('googleTrendsChart').getContext('2d');
+
+      // Data extracted from multiTimeline.csv
+      const labels = ['Dec 15, 2024', 'Dec 22, 2024', 'Dec 29, 2024', 'Jan 5, 2025', 'Jan 12, 2025', 'Jan 19, 2025', 'Jan 26, 2025', 'Feb 2, 2025', 'Feb 9, 2025', 'Feb 16, 2025', 'Feb 23, 2025', 'Mar 2, 2025', 'Mar 9, 2025', 'Mar 16, 2025', 'Mar 23, 2025', 'Mar 30, 2025', 'Apr 6, 2025', 'Apr 13, 2025', 'Apr 20, 2025', 'Apr 27, 2025', 'May 4, 2025', 'May 11, 2025', 'May 18, 2025', 'May 25, 2025', 'Jun 1, 2025', 'Jun 8, 2025', 'Jun 15, 2025', 'Jun 22, 2025', 'Jun 29, 2025', 'Jul 6, 2025', 'Jul 13, 2025', 'Jul 20, 2025', 'Jul 27, 2025', 'Aug 3, 2025', 'Aug 10, 2025', 'Aug 17, 2025', 'Aug 24, 2025', 'Aug 31, 2025', 'Sep 7, 2025', 'Sep 14, 2025', 'Sep 21, 2025', 'Sep 28, 2025', 'Oct 5, 2025', 'Oct 12, 2025', 'Oct 19, 2025', 'Oct 26, 2025', 'Nov 2, 2025', 'Nov 9, 2025', 'Nov 16, 2025', 'Nov 23, 2025', 'Nov 30, 2025', 'Dec 7, 2025', 'Dec 14, 2025', 'Dec 21, 2025'];
+
+      // "Sale" (Blue)
+      const saleData = [66, 78, 77, 67, 67, 69, 63, 69, 65, 70, 67, 71, 74, 73, 73, 76, 68, 72, 75, 73, 75, 78, 76, 78, 77, 75, 77, 80, 80, 85, 87, 83, 80, 84, 82, 76, 76, 77, 68, 69, 67, 67, 71, 66, 67, 65, 72, 82, 83, 100, 79, 73, 68, 75];
+
+      // "Instagram" (Red)
+      const instagramData = [24, 23, 27, 23, 23, 25, 24, 23, 24, 24, 23, 23, 23, 23, 22, 21, 22, 23, 23, 23, 23, 24, 23, 23, 23, 24, 25, 25, 24, 25, 30, 34, 39, 29, 27, 23, 24, 23, 23, 21, 24, 23, 23, 23, 23, 25, 26, 26, 27, 26, 26, 24, 23, 24];
+      
+      // "Facebook" (Yellow)
+      const facebookData = [47, 47, 50, 50, 49, 50, 48, 47, 48, 48, 49, 46, 47, 46, 46, 44, 46, 42, 47, 46, 47, 47, 45, 48, 46, 46, 46, 47, 46, 46, 47, 51, 49, 47, 48, 46, 45, 42, 46, 46, 47, 44, 44, 43, 44, 44, 44, 45, 43, 42, 42, 40, 41, 41];
+
+      const trendChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels, 
+          datasets: [
+            {
+              label: 'sale',
+              data: saleData,
+              borderColor: '#4285F4', // Google Blue
+              backgroundColor: '#4285F4',
+              borderWidth: 2,
+              pointRadius: 0, 
+              pointHoverRadius: 5,
+              tension: 0.1
+            },
+            {
+              label: 'instagram',
+              data: instagramData,
+              borderColor: '#EA4335', // Google Red
+              backgroundColor: '#EA4335',
+              borderWidth: 2,
+              pointRadius: 0,
+              pointHoverRadius: 5,
+              tension: 0.1
+            },
+            {
+              label: 'facebook',
+              data: facebookData,
+              borderColor: '#FBBC05', // Google Yellow
+              backgroundColor: '#FBBC05',
+              borderWidth: 2,
+              pointRadius: 0,
+              pointHoverRadius: 5,
+              tension: 0.1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false,
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+              align: 'start',
+              labels: {
+                usePointStyle: true,
+                pointStyle: 'circle',
+                boxWidth: 8,
+                padding: 20,
+                font: {
+                  family: 'Inter',
+                  size: 13
+                },
+                color: '#333'
+              }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false,
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              titleColor: '#000',
+              bodyColor: '#333',
+              borderColor: '#ddd',
+              borderWidth: 1,
+              padding: 10
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false,
+                drawBorder: false
+              },
+              ticks: {
+                maxTicksLimit: 4,
+                color: '#999',
+                font: {
+                  size: 11
+                }
+              }
+            },
+            y: {
+              min: 0,
+              max: 100,
+              grid: {
+                color: '#f0f0f0',
+                drawBorder: false
+              },
+              ticks: {
+                stepSize: 25,
+                color: '#999',
+                font: {
+                  size: 11
+                }
+              },
+              border: {
+                display: false
+              }
+            }
+          }
+        }
+      });
+
+      // 2. Form Submission Logic
       document
         .getElementById("waitlistForm")
         .addEventListener("submit", function (e) {
