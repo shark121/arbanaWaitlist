@@ -303,11 +303,32 @@
         display: block;
       }
 
-      .footer {
-        margin-top: 32px;
-        text-align: center;
-        font-size: 0.85rem;
+      /* Legal Links Styling (New) */
+      .legal-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 24px;
+        margin-bottom: 0px;
+      }
+
+      .legal-links a {
+        font-size: 0.8rem;
         color: var(--text-light);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .legal-links a:hover {
+        color: var(--brand-red);
+        text-decoration: underline;
+      }
+
+      .footer {
+        margin-top: 16px;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #999;
       }
 
       /* Animations */
@@ -556,15 +577,13 @@
                 <button type="submit" id="submitBtn" class="button1">
                   Join Waitlist
                 </button>
-                <!-- <button type="button" class="button3">
-                  Get 3 months for 9.99
-                </button> -->
-              </div>
+                </div>
             </form>
 
-            <a href="./tos.html">terms of service</a>
-            <br />
-            <a href="./privacyPolicy.html">privacy policy</a>
+            <div class="legal-links">
+              <a href="./tos.html">Terms of Service</a>
+              <a href="./privacyPolicy.html">Privacy Policy</a>
+            </div>
             
             <div class="footer">&copy; 2025 Arbana. All rights reserved.</div>
           </div>
