@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arbana | Strategic Retail Discount & Sales Optimization</title>
+    <title>Arbana | The Sale Tracker for Shopify & WooCommerce Stores</title>
     <meta
       name="description"
-      content="Join Arbana to **boost retail sales** using strategic **discounts** and **scarcity tactics**. The ultimate tool for Shopify and WooCommerce growth."
+      content="Arbana is a sale tracker that puts your discounted products in front of buyers who are actively searching for deals — join the waitlist for early access."
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -94,6 +94,15 @@
         font-size: 1.15rem;
         line-height: 1.6;
         font-weight: 400;
+      }
+
+      .section-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-bottom: 16px;
       }
 
       /* --- FLEX GRID STATS (Always Visible) --- */
@@ -198,8 +207,72 @@
         animation: fadeIn 0.8s ease-out;
       }
 
+      /* Form Header */
+      .form-header {
+        margin-bottom: 8px;
+      }
+
+      .form-header h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 6px;
+      }
+
+      .form-header p {
+        font-size: 0.9rem;
+        color: var(--text-gray);
+      }
+
       .form-header-mobile {
         display: none;
+      }
+
+      /* How It Works */
+      .how-it-works {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 40px;
+      }
+
+      .hiw-step {
+        flex: 1;
+        background: var(--bg-card);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      }
+
+      .hiw-step-num {
+        width: 28px;
+        height: 28px;
+        background: var(--brand-red);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+      }
+
+      .hiw-step strong {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--primary-black);
+        display: block;
+      }
+
+      .hiw-step p {
+        font-size: 0.85rem;
+        color: var(--text-gray);
+        line-height: 1.5;
+        margin: 0;
       }
 
       /* Form Styling */
@@ -359,8 +432,12 @@
         }
 
         .main-wrapper {
-          flex-direction: column-reverse;
+          flex-direction: column;
           height: auto;
+        }
+
+        .how-it-works {
+          flex-direction: column;
         }
 
         .brand-side {
@@ -372,12 +449,6 @@
           padding: 40px 24px;
           border-left: none;
           border-bottom: 1px solid var(--border-color);
-        }
-
-        .form-header-mobile {
-          display: block;
-          margin-bottom: 24px;
-          text-align: center;
         }
 
         h1 {
@@ -406,12 +477,62 @@
         <img src="logo.svg" alt="Logo" class="logo" />
 
         <div class="content-block">
-          <h1>Let arbana supercharge your sales.</h1>
+          <h1>Put your discounts in front of <span class="highlight">buyers who are ready to buy.</span></h1>
           <p class="hero-subtitle">
-            Research has shown that the modern retailer can significantly boost
-            sales by leveraging strategic discounts.
+            Arbana is a sale tracker that syncs your discounted inventory to a marketplace of deal-hunting shoppers — so your products sell faster, without paid ads.
           </p>
         </div>
+
+        <div class="how-it-works">
+          <div class="hiw-step">
+            <div class="hiw-step-num">1</div>
+            <strong>Connect your store</strong>
+            <p>Link your Shopify or WooCommerce store in minutes — no developer needed.</p>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-num">2</div>
+            <strong>Arbana tracks your discounts</strong>
+            <p>Your discounted products are automatically detected and listed on the marketplace.</p>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-num">3</div>
+            <strong>Reach deal-hunting shoppers</strong>
+            <p>Arbana puts your deals in front of buyers already searching for sales.</p>
+          </div>
+        </div>
+
+        <p class="section-label">People search "sale" more than Instagram. Let that sink in.</p>
+
+        <div class="chart-container">
+          <div class="chart-header">
+            <h4>Interest over time</h4>
+            <div class="chart-icons">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                style="color: #555"
+              >
+                <path
+                  d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"
+                />
+                <path
+                  d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div style="position: relative; height: 300px; width: 100%">
+            <canvas id="googleTrendsChart"></canvas>
+          </div>
+        </div>
+
+        <p style="color: #999; font-size: 0.8rem">&copy; 2025 Google Trends.</p>
+
+        <p class="section-label" style="margin-top: 24px;">The numbers back it up</p>
 
         <div class="stats-container">
           <div class="stat-card">
@@ -472,35 +593,6 @@
             </div>
           </div>
         </div>
-
-        <div class="chart-container">
-          <div class="chart-header">
-            <h4>Interest over time</h4>
-            <div class="chart-icons">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-                style="color: #555"
-              >
-                <path
-                  d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"
-                />
-                <path
-                  d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"
-                />
-              </svg>
-            </div>
-          </div>
-
-          <div style="position: relative; height: 300px; width: 100%">
-            <canvas id="googleTrendsChart"></canvas>
-          </div>
-        </div>
-
-        <p style="color: #999; font-size: 0.8rem">&copy; 2025 Google Trends.</p>
       </div>
 
       <div class="form-side">
@@ -515,8 +607,9 @@
           </div>
 
           <div id="formContent">
-            <div class="form-header-mobile">
-              <h2>Request Access</h2>
+            <div class="form-header">
+              <h2>Join the waitlist</h2>
+              <p>Be among the first stores on Arbana.</p>
             </div>
 
             <form id="waitlistForm" class="form-grid">
